@@ -14,36 +14,24 @@
 #endif
 
 #include "timer.h"
+#include "game.h"
+
 
 int main(void) {
     /* Insert DDR and PORT initializations */
     DDRA = 0x00; PORTA = 0xFF;
     DDRB = 0xFF; PORTB = 0x00;
-    TimerSet(1000);
+    TimerSet(300);
     TimerOn();
     
-    unsigned char led = 0x01;
 
+    state = Start;
     /* Insert your solution below */
     while (1) {
-        if((led == 0x01)){
-	    led =0x02;
-        }
-        else if ((led == 0x02)){
-	    led =0x04;
-        }
-        else {
-            led = 0x01;
-        }
-        //led = (led == 0x03)? 0x01:0x03;
-        PORTB = led;
-
+        Tick();
 	while (!TimerFlag){};
 	TimerFlag = 0;
 	
-
-
-
     }
     return 1;
 }
